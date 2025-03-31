@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresías</title>
+</head>
+<body>
+    <h2>Seleccione el idioma / Select Language</h2>
+    <button onclick="redirect('es')">Español</button>
+    <button onclick="redirect('en')">English</button>
+
+    <script>
+        // Obtiene el parámetro de la URL (ejemplo: ?membresia=gold)
+        const params = new URLSearchParams(window.location.search);
+        const membresia = params.get("membresia"); // platinum, rhodium, silver, gold, palladium
+
+        // Mapeo de PDFs por membresía e idioma
+        const pdfs = {
+            platinum: { es: "pdfs/PLATINUM-ESP.pdf", en: "pdfs/PLATINUM-ENG.pdf" },
+            rhodium: { es: "pdfs/RHODIUM-ESP.pdf", en: "pdfs/RHODIUM-ENG.pdf" },
+            silver: { es: "pdfs/SILVER-ESP.pdf", en: "pdfs/SILVER-ENG.pdf" },
+            gold: { es: "pdfs/GOLD-ESP.pdf", en: "pdfs/GOLD-ENG.pdf" },
+            palladium: { es: "pdfs/PALLADIUM-ESP.pdf", en: "pdfs/PALLADIUM-ENG.pdf" }
+        };
+
+        // Función para redirigir según el idioma seleccionado
+        function redirect(lang) {
+            if (membresia && pdfs[membresia] && pdfs[membresia][lang]) {
+                window.location.href = pdfs[membresia][lang]; // Redirige al PDF
+            } else {
+                document.body.innerHTML = "<h2>Error: Membresía no válida</h2>";
+            }
+        }
+    </script>
+</body>
+</html>
